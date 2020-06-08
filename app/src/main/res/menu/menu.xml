@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/add_item"
+        android:title="@null"
+        android:icon="@drawable/btn_info"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/icon_row_menu_id"
+        android:title="@null">
+        <menu>
+            <item android:id="@+id/forward_menu_id"
+                android:title="@null"
+                android:icon="@drawable/btn_right"
+                app:showAsAction="always" />
+            <item android:id="@+id/bookmark_this_page_id"
+                android:title="@null"
+                android:icon="@drawable/btn_star"
+                app:showAsAction="always" />
+            <!--
+            <item android:id="@+id/offline_page_id"
+                android:title="@string/download_page"
+                android:icon="@drawable/ic_get_app_white_24dp"/>
+            <item android:id="@+id/info_menu_id"
+                android:title="@string/accessibility_menu_info"
+                android:icon="@drawable/btn_info" />
+            <item android:id="@+id/reload_menu_id"
+                android:title="@string/accessibility_btn_refresh"
+                android:icon="@drawable/btn_toolbar_reload"/>
+                -->
+        </menu>
+    </item>
+    <item
+        android:id="@+id/remove_item"
+        android:title="@string/remove" />
+</menu>
