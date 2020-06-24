@@ -42,4 +42,5 @@ dependencies {
     }
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'com.leon:lfilepickerlibrary:1.8.0'
+    implementation 'com.orhanobut:logger:2.2.0'
 }

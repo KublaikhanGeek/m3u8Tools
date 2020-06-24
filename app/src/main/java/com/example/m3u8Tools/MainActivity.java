@@ -3,6 +3,7 @@ package com.example.m3u8Tools;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,12 +18,15 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
+import com.orhanobut.logger.DiskLogAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 
 public class MainActivity extends AppCompatActivity {
     static final String[] PERMISSIONS = new String[]{
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestAppPermissions();
+        com.orhanobut.logger.Logger.addLogAdapter(new DiskLogAdapter());
     }
 
     private void initListView() {
@@ -121,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 .check();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
 

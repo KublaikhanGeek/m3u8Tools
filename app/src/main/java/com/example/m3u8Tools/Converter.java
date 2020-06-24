@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -160,6 +162,7 @@ public class Converter{
                     filePath = dir + "/" + s;
                 }
                 Log.d("m3u8TOOls", filePath);
+                Logger.w("[mergeTs] " + filePath);
                 File fileTs = new File(filePath);
 
                     FileInputStream fileInputStream = new FileInputStream(fileTs);
@@ -200,7 +203,8 @@ public class Converter{
                 byte[] bytes = new byte[available];
                 inputStream1.read(bytes);
                 byte[] decrypt = decrypt(bytes, available, "0123456789abcdef", "", method);
-                File file = new File(dir + "/" + s + "_de");
+                File file = new File( dir + "/" + s + "_de");
+                Logger.w("[decryptDir] " + dir + "/" + s + "_de");
                 OutputStream outputStream1 = new FileOutputStream(file);
                 outputStream1.write(decrypt);
                 inputStream1.close();
