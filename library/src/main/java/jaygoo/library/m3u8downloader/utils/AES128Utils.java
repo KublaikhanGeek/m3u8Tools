@@ -20,7 +20,9 @@ public class AES128Utils {
 
     public final static String ENCODING = "UTF-8";
 
-    /**将二进制转换成16进制
+    /**
+     * 将二进制转换成16进制
+     *
      * @param buf
      * @return
      */
@@ -36,17 +38,19 @@ public class AES128Utils {
         return sb.toString();
     }
 
-    /**将16进制转换为二进制
+    /**
+     * 将16进制转换为二进制
+     *
      * @param hexStr
      * @return
      */
     public static byte[] parseHexStr2Byte(String hexStr) {
         if (hexStr.length() < 1)
             return null;
-        byte[] result = new byte[hexStr.length()/2];
-        for (int i = 0;i< hexStr.length()/2; i++) {
-            int high = Integer.parseInt(hexStr.substring(i*2, i*2+1), 16);
-            int low = Integer.parseInt(hexStr.substring(i*2+1, i*2+2), 16);
+        byte[] result = new byte[hexStr.length() / 2];
+        for (int i = 0; i < hexStr.length() / 2; i++) {
+            int high = Integer.parseInt(hexStr.substring(i * 2, i * 2 + 1), 16);
+            int low = Integer.parseInt(hexStr.substring(i * 2 + 1, i * 2 + 2), 16);
             result[i] = (byte) (high * 16 + low);
         }
         return result;
@@ -55,6 +59,7 @@ public class AES128Utils {
     /**
      * 生成密钥
      * 自动生成base64 编码后的AES128位密钥
+     *
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
@@ -68,24 +73,26 @@ public class AES128Utils {
 
     /**
      * AES 加密
-     * @param base64Key   base64编码后的 AES key
-     * @param text  待加密的字符串
+     *
+     * @param base64Key base64编码后的 AES key
+     * @param text      待加密的字符串
      * @return 加密后的byte[] 数组
      * @throws Exception
      */
-    public static byte[] getAESEncode(String base64Key, String text) throws Exception{
+    public static byte[] getAESEncode(String base64Key, String text) throws Exception {
         return getAESEncode(base64Key, text.getBytes());
     }
 
     /**
      * AES 加密
-     * @param base64Key   base64编码后的 AES key
-     * @param bytes  待加密的bytes
+     *
+     * @param base64Key base64编码后的 AES key
+     * @param bytes     待加密的bytes
      * @return 加密后的byte[] 数组
      * @throws Exception
      */
-    public static byte[] getAESEncode(String base64Key, byte[] bytes) throws Exception{
-        if (base64Key == null)return bytes;
+    public static byte[] getAESEncode(String base64Key, byte[] bytes) throws Exception {
+        if (base64Key == null) return bytes;
         byte[] key = parseHexStr2Byte(base64Key);
         SecretKeySpec sKeySpec = new SecretKeySpec(key, "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
@@ -96,33 +103,34 @@ public class AES128Utils {
 
     /**
      * AES解密
-     * @param base64Key   base64编码后的 AES key
-     * @param text  待解密的字符串
+     *
+     * @param base64Key base64编码后的 AES key
+     * @param text      待解密的字符串
      * @return 解密后的byte[] 数组
      * @throws Exception
      */
-    public static byte[] getAESDecode(String base64Key, String text) throws Exception{
+    public static byte[] getAESDecode(String base64Key, String text) throws Exception {
         return getAESDecode(base64Key, text.getBytes());
     }
 
     /**
      * AES解密
-     * @param base64Key   base64编码后的 AES key
-     * @param bytes  待解密的字符串
+     *
+     * @param base64Key base64编码后的 AES key
+     * @param bytes     待解密的字符串
      * @return 解密后的byte[] 数组
      * @throws Exception
      */
-    public static byte[] getAESDecode(String base64Key, byte[] bytes) throws Exception{
-        if (base64Key == null)return bytes;
+    public static byte[] getAESDecode(String base64Key, byte[] bytes) throws Exception {
+        if (base64Key == null) return bytes;
         byte[] key = parseHexStr2Byte(base64Key);
         SecretKeySpec sKeySpec = new SecretKeySpec(key, "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
         AlgorithmParameterSpec paramSpec = new IvParameterSpec(new byte[16]);
         cipher.init(Cipher.DECRYPT_MODE, sKeySpec, paramSpec);
         try {
-           return cipher.doFinal(bytes);
-        }catch (Exception e)
-        {
+            return cipher.doFinal(bytes);
+        } catch (Exception e) {
             System.out.println(e.toString());
             return null;
         }

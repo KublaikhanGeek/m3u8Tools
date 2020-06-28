@@ -32,6 +32,7 @@ public abstract class OnM3U8DownloadListener {
 
     /**
      * 异步回调，不可以直接在UI线程调用
+     *
      * @param task
      */
     public void onDownloadProgress(M3U8Task task) {
@@ -44,6 +45,7 @@ public abstract class OnM3U8DownloadListener {
 
     /**
      * 线程环境无法保证，不可以直接在UI线程调用
+     *
      * @param task
      */
     public void onDownloadError(M3U8Task task, Throwable errorMsg) {

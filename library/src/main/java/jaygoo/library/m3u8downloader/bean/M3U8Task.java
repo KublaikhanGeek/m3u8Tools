@@ -18,28 +18,29 @@ public class M3U8Task {
     private float progress;
     private M3U8 m3U8;
 
-    private M3U8Task(){}
+    private M3U8Task() {
+    }
 
-    public M3U8Task(String url){
+    public M3U8Task(String url) {
         this.url = url;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof M3U8Task){
-            M3U8Task m3U8Task = (M3U8Task)obj;
-            if (url != null && url.equals(m3U8Task.getUrl()))return true;
+        if (obj instanceof M3U8Task) {
+            M3U8Task m3U8Task = (M3U8Task) obj;
+            if (url != null && url.equals(m3U8Task.getUrl())) return true;
         }
         return false;
     }
 
     public String getFormatSpeed() {
-        if (speed == 0)return "";
+        if (speed == 0) return "";
         return MUtils.formatFileSize(speed) + "/s";
     }
 
     public String getFormatTotalSize() {
-        if (m3U8 == null)return "";
+        if (m3U8 == null) return "";
         return m3U8.getFormatFileSize();
     }
 

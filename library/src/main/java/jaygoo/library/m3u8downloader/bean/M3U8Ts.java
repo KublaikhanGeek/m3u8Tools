@@ -35,23 +35,24 @@ public class M3U8Ts implements Comparable<M3U8Ts> {
         this.seconds = seconds;
     }
 
-    public String obtainEncodeTsFileName(){
-        if (url == null)return "error.ts";
+    public String obtainEncodeTsFileName() {
+        if (url == null) return "error.ts";
         return MD5Utils.encode(url).concat(".ts");
     }
 
-    public String obtainFullUrl(String hostUrl){
+    public String obtainFullUrl(String hostUrl) {
         if (url == null) {
             return null;
         }
         if (url.startsWith("http")) {
             return url;
-        }else if (url.startsWith("//")) {
+        } else if (url.startsWith("//")) {
             return "http:".concat(url);
-        }else {
+        } else {
             return hostUrl.concat(url);
         }
     }
+
     @Override
     public String toString() {
         return url + " (" + seconds + "sec)";
@@ -63,7 +64,7 @@ public class M3U8Ts implements Comparable<M3U8Ts> {
     public long getLongDate() {
         try {
             return Long.parseLong(url.substring(0, url.lastIndexOf(".")));
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return 0;
         }
     }

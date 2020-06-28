@@ -56,16 +56,16 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = videos.get(position).url + m3u8;
                 File file = new File(url);
-                if (file.exists()){
+                if (file.exists()) {
 /*
                     Toast.makeText(getApplicationContext(),"本地文件已下载，正在播放中！！！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this,FullScreenActivity.class);
                     intent.putExtra("M3U8_URL", url);
                     startActivity(intent);
 */
-                Converter converter = new Converter(videos.get(position).url, videos.get(position).name);
-                converter.convertVideo();
-                }else {
+                    Converter converter = new Converter(videos.get(position).url, videos.get(position).name);
+                    converter.convertVideo();
+                } else {
                     Toast.makeText(getApplicationContext(), "未发现m3u8！！！", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -77,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 new LFilePicker()
                         .withActivity(MainActivity.this)
                         .withRequestCode(REQUESTCODE_FROM_ACTIVITY)
-                        .withIconStyle(Constant.ICON_STYLE_GREEN )
+                        .withIconStyle(Constant.ICON_STYLE_GREEN)
                         .withStartPath("/storage/emulated/0/abcplayer")//指定初始显示路径
                         .withChooseMode(false)
                         .withMutilyMode(true)
                         .start();
-            }});
+            }
+        });
 
     }
 
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
                             initListView();
-                            Toast.makeText(getApplicationContext(),"权限获取成功",Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"权限获取失败",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "权限获取成功", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "权限获取失败", Toast.LENGTH_LONG).show();
                         }
                     }
 

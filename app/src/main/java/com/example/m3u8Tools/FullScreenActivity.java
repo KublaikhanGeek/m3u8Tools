@@ -24,14 +24,14 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  * 描    述:
  * ================================================
  */
-public class FullScreenActivity extends Activity{
+public class FullScreenActivity extends Activity {
 
     private StandardGSYVideoPlayer videoPlayer;
     private EncryptM3U8Server m3u8Server = new EncryptM3U8Server();
     private OrientationUtils orientationUtils;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
 
@@ -44,15 +44,15 @@ public class FullScreenActivity extends Activity{
         list.add(videoOptionModel);
         list.add(videoOptionModel2);
         GSYVideoManager.instance().setOptionModelList(list);
-        videoPlayer = (StandardGSYVideoPlayer)findViewById(R.id.videoView);
+        videoPlayer = (StandardGSYVideoPlayer) findViewById(R.id.videoView);
 
         String url = null;
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
             url = bundle.getString("M3U8_URL");
         }
         m3u8Server.execute();
-        videoPlayer.getCurrentPlayer().setUp(m3u8Server.createLocalHttpUrl(url),false,"");
+        videoPlayer.getCurrentPlayer().setUp(m3u8Server.createLocalHttpUrl(url), false, "");
         //videoPlayer.startWindowFullscreen(this,false,false);
         //设置返回键
         videoPlayer.getBackButton().setVisibility(View.VISIBLE);

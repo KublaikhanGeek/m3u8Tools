@@ -15,7 +15,8 @@ import java.io.InputStreamReader;
 public class FileUtils {
     /**
      * 将文本文件中的内容读入到buffer中
-     * @param buffer buffer
+     *
+     * @param buffer   buffer
      * @param filePath 文件路径
      * @throws IOException 异常
      * @author cn.outofmemory
@@ -37,6 +38,7 @@ public class FileUtils {
 
     /**
      * 读取文本文件内容
+     *
      * @param filePath 文件所在路径
      * @return 文本内容
      * @throws IOException 异常

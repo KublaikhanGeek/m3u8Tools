@@ -16,11 +16,11 @@ public class M3U8Log {
 
     private static String TAG = "M3U8Log";
 
-    public static void d(String msg){
+    public static void d(String msg) {
         if (M3U8DownloaderConfig.isDebugMode()) Log.d(TAG, msg);
     }
 
-    public static void e(String msg){
+    public static void e(String msg) {
         if (M3U8DownloaderConfig.isDebugMode()) Log.e(TAG, msg);
     }
 

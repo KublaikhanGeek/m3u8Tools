@@ -14,9 +14,8 @@ import jaygoo.library.m3u8downloader.bean.M3U8;
 interface OnTaskDownloadListener extends BaseListener {
 
     /**
-     *
      * @param totalTs ts总数
-     * @param curTs 当前下载完成的ts个数
+     * @param curTs   当前下载完成的ts个数
      */
     void onStartDownload(int totalTs, int curTs);
 
@@ -25,9 +24,9 @@ interface OnTaskDownloadListener extends BaseListener {
      * 注意：这个方法是异步的（子线程中执行），所以不能在此方法中回调，其他方法为主线程中回调
      *
      * @param totalFileSize
-     * @param itemFileSize 单个文件的大小
-     * @param totalTs      ts总数
-     * @param curTs        当前下载完成的ts个数
+     * @param itemFileSize  单个文件的大小
+     * @param totalTs       ts总数
+     * @param curTs         当前下载完成的ts个数
      */
     void onDownloading(long totalFileSize, long itemFileSize, int totalTs, int curTs);
 
@@ -52,6 +51,7 @@ interface OnTaskDownloadListener extends BaseListener {
     /**
      * 错误的时候回调
      * 线程环境无法保证，不可以直接在UI线程调用
+     *
      * @param errorMsg
      */
     void onError(Throwable errorMsg);

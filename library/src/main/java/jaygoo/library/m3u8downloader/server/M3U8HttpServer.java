@@ -38,7 +38,7 @@ public class M3U8HttpServer extends NanoHTTPD {
         super(port);
     }
 
-    public String createLocalHttpUrl(String filePath){
+    public String createLocalHttpUrl(String filePath) {
         Uri uri = Uri.parse(filePath);
         String scheme = uri.getScheme();
         if (null != scheme) {
@@ -46,7 +46,7 @@ public class M3U8HttpServer extends NanoHTTPD {
         } else {
             filePath = uri.getPath();
         }
-        if (filePath != null){
+        if (filePath != null) {
             filesDir = filePath.substring(0, filePath.lastIndexOf("/") + 1);
             return String.format("http://127.0.0.1:%d%s", myPort, filePath);
         }
@@ -73,7 +73,7 @@ public class M3U8HttpServer extends NanoHTTPD {
      * 关闭服务
      */
     public void finish() {
-        if(server != null){
+        if (server != null) {
             server.stop();
             server = null;
         }
@@ -92,7 +92,7 @@ public class M3U8HttpServer extends NanoHTTPD {
         File file = new File(url);
 
         Response response = newFixedLengthResponse(Status.NOT_FOUND, "text/html", "文件不存在：" + url);
-        if(file.exists()){
+        if (file.exists()) {
 
             try {
                 fis = new FileInputStream(file);
@@ -102,7 +102,7 @@ public class M3U8HttpServer extends NanoHTTPD {
             }
             // ts文件
             String mimeType = "video/mpeg";
-            if(url.contains(".m3u8")){
+            if (url.contains(".m3u8")) {
                 // m3u8文件
                 mimeType = "video/x-mpegURL";
             }

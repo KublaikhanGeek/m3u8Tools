@@ -40,7 +40,7 @@ import static com.example.m3u8Tools.FileUtils.readFile;
  * 描    述:
  * ================================================
  */
-public class Converter{
+public class Converter {
 
     //合并后的文件存储目录
     private String dir;
@@ -74,7 +74,7 @@ public class Converter{
         String content = "";
         try {
             content = readFile(path + "/index.m3u8");
-        }catch (Exception e) {
+        } catch (Exception e) {
         }
 
 
@@ -86,19 +86,19 @@ public class Converter{
             //如果含有此字段，则获取加密算法以及获取密钥的链接
             if (s.contains("#EXT-X-KEY")) {
                 isEncrypt = true;
-                    String[] split1 = s.split(",");
-                    for (String s1 : split1) {
-                        if (s1.contains("METHOD")) {
-                            method = s1.split("=", 2)[1];
-                            continue;
-                        }
-                        if (s1.contains("URI")) {
-                            key = s1.split("=", 2)[1];
-                            continue;
-                        }
-                        if (s1.contains("IV"))
-                            iv = s1.split("=", 2)[1];
+                String[] split1 = s.split(",");
+                for (String s1 : split1) {
+                    if (s1.contains("METHOD")) {
+                        method = s1.split("=", 2)[1];
+                        continue;
                     }
+                    if (s1.contains("URI")) {
+                        key = s1.split("=", 2)[1];
+                        continue;
+                    }
+                    if (s1.contains("IV"))
+                        iv = s1.split("=", 2)[1];
+                }
             }
 
 
@@ -108,12 +108,9 @@ public class Converter{
                 if (str.contains("#EXTINF")) {
                     String s1 = split[++i];
                     int pos = s1.lastIndexOf('/');
-                    if (pos == -1)
-                    {
+                    if (pos == -1) {
                         tsSet.add(s1);
-                    }
-                    else
-                    {
+                    } else {
                         tsSet.add(s1.substring(pos + 1));
                     }
                 }
@@ -121,18 +118,16 @@ public class Converter{
         }
 
         try {
-        DataInputStream dis = new DataInputStream( new BufferedInputStream(new FileInputStream (dir + "/key.key")));
-        dis.read(keyBytes);
-        dis.close();
+            DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream(dir + "/key.key")));
+            dis.read(keyBytes);
+            dis.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void convertVideo()
-    {
-        if (isEncrypt)
-        {
+    public void convertVideo() {
+        if (isEncrypt) {
             decryptDir(tsSet);
         }
         mergeTs();
@@ -153,28 +148,23 @@ public class Converter{
             byte[] b = new byte[4096];
             for (String s : tsSet) {
                 String filePath;
-                if (isEncrypt)
-                {
+                if (isEncrypt) {
                     filePath = dir + "/" + s + "_de";
-                }
-                else
-                {
+                } else {
                     filePath = dir + "/" + s;
                 }
                 Log.d("m3u8TOOls", filePath);
                 Logger.w("[mergeTs] " + filePath);
                 File fileTs = new File(filePath);
-
-                    FileInputStream fileInputStream = new FileInputStream(fileTs);
-                    int len;
-                    while ((len = fileInputStream.read(b)) != -1) {
-                        fileOutputStream.write(b, 0, len);
-                    }
-                    fileInputStream.close();
-                    fileOutputStream.flush();
-
+                FileInputStream fileInputStream = new FileInputStream(fileTs);
+                int len;
+                while ((len = fileInputStream.read(b)) != -1) {
+                    fileOutputStream.write(b, 0, len);
+                }
+                fileInputStream.close();
+                fileOutputStream.flush();
             }
-                fileOutputStream.close();
+            fileOutputStream.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,10 +182,8 @@ public class Converter{
         }
     }
 
-    private void decryptDir(Set<String> files)
-    {
-        for (String s : files)
-        {
+    private void decryptDir(Set<String> files) {
+        for (String s : files) {
             try {
                 File inFile = new File(dir + "/" + s);
                 InputStream inputStream1 = new FileInputStream(inFile);
@@ -203,7 +191,7 @@ public class Converter{
                 byte[] bytes = new byte[available];
                 inputStream1.read(bytes);
                 byte[] decrypt = decrypt(bytes, available, "0123456789abcdef", "", method);
-                File file = new File( dir + "/" + s + "_de");
+                File file = new File(dir + "/" + s + "_de");
                 Logger.w("[decryptDir] " + dir + "/" + s + "_de");
                 OutputStream outputStream1 = new FileOutputStream(file);
                 outputStream1.write(decrypt);
@@ -247,8 +235,6 @@ public class Converter{
         cipher.init(Cipher.DECRYPT_MODE, keySpec, paramSpec);
         return cipher.doFinal(sSrc, 0, length);
     }
-
-
 
 
 }
