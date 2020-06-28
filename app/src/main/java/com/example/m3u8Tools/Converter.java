@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
+import com.elvishew.xlog.XLog;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -147,27 +147,33 @@ public class Converter {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             byte[] b = new byte[4096];
             for (String s : tsSet) {
-                String filePath;
-                if (isEncrypt) {
-                    filePath = dir + "/" + s + "_de";
-                } else {
-                    filePath = dir + "/" + s;
+                try {
+                    String filePath;
+                    if (isEncrypt) {
+                        filePath = dir + "/" + s + "_de";
+                    } else {
+                        filePath = dir + "/" + s;
+                    }
+                    Log.d("m3u8TOOls", filePath);
+                    XLog.d(filePath);
+                    File fileTs = new File(filePath);
+                    FileInputStream fileInputStream = new FileInputStream(fileTs);
+                    int len;
+                    while ((len = fileInputStream.read(b)) != -1) {
+                        fileOutputStream.write(b, 0, len);
+                    }
+                    fileInputStream.close();
+                    fileOutputStream.flush();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    XLog.d(e.toString());
                 }
-                Log.d("m3u8TOOls", filePath);
-                Logger.w("[mergeTs] " + filePath);
-                File fileTs = new File(filePath);
-                FileInputStream fileInputStream = new FileInputStream(fileTs);
-                int len;
-                while ((len = fileInputStream.read(b)) != -1) {
-                    fileOutputStream.write(b, 0, len);
-                }
-                fileInputStream.close();
-                fileOutputStream.flush();
             }
             fileOutputStream.close();
 
         } catch (Exception e) {
             e.printStackTrace();
+            XLog.d(e.toString());
         }
     }
 
@@ -192,7 +198,7 @@ public class Converter {
                 inputStream1.read(bytes);
                 byte[] decrypt = decrypt(bytes, available, "0123456789abcdef", "", method);
                 File file = new File(dir + "/" + s + "_de");
-                Logger.w("[decryptDir] " + dir + "/" + s + "_de");
+                XLog.d("[decryptDir] " + dir + "/" + s + "_de");
                 OutputStream outputStream1 = new FileOutputStream(file);
                 outputStream1.write(decrypt);
                 inputStream1.close();
