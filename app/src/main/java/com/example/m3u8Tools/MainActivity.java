@@ -80,20 +80,15 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.setOnClickItemId(position);
                 String url = videos.get(position).url + m3u8;
                 File file = new File(url);
                 if (file.exists()) {
-/*
                     Toast.makeText(getApplicationContext(),"本地文件已下载，正在播放中！！！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,FullScreenActivity.class);
-                    intent.putExtra("M3U8_URL", url);
-                    startActivity(intent);
-*/
-                    Converter converter = new Converter(videos.get(position).url, videos.get(position).name);
-                    converter.convertVideo();
                 } else {
                     Toast.makeText(getApplicationContext(), "未发现m3u8！！！", Toast.LENGTH_SHORT).show();
                 }
+                adapter.notifyDataSetChanged();
             }
         });
 
