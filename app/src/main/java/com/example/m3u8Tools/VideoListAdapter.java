@@ -79,11 +79,6 @@ public class VideoListAdapter extends ArrayAdapter<VideoBean> {
             final ViewHolder holder = (ViewHolder)convertView.getTag();
             VideoBean bean = getItem(position);
             holder.fileNameText.setText(bean.name);
-            if (position % 2 == 0) {
-                holder.root.setBackgroundColor(0xFFC9EEFE);
-            } else {
-                holder.root.setBackgroundColor(0xFF00FFFF);
-            }
 
             if (position == mExpandedMenuPos)
             {
